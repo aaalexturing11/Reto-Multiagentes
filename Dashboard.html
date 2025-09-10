@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Dashboard - Cruce Semaforizado</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <script defer src="js/app.js"></script>
+</head>
+<body id="page-dashboard">
+  <header class="site-header">
+    <div class="logo">Problemática Movilidad urbana • <span class="especialAV">Av.Ricardo Covarrubias & Blvd.Primavera</span></div>
+    <nav id="header-actions">
+      <button class="btn ghost small" id="btnReload">Reiniciar sim</button>
+    </nav>
+  </header>
+
+  <main class="dashboard-wrap">
+
+    <aside class="sidebar">
+      <div class="summary">
+        <div class="stat">
+          <div class="num" id="stat-delay">--</div>
+          <div class="label">Delay (proxy)</div>
+        </div>
+        <div class="stat">
+          <div class="num" id="stat-queue">--</div>
+          <div class="label">Max Queue</div>
+        </div>
+        <div class="stat">
+          <div class="num" id="stat-thru">--</div>
+          <div class="label">Throughput</div>
+        </div>
+      </div>
+
+      <div class="station-list">
+
+        <div class="station-card">
+          <div>
+            <strong>Tiempos del semáforo</strong>
+            <div class="hint"> <span class="mini">Semáforo 1 = Este a Oeste simultánea; Semaforo 2 = Sur a Norte</span></div>
+          </div>
+          <div class="slider-field">
+            <label><span class="eufarei12x">Semáforo Verde - 1</span> <span class="especialAV">(Av.Ricardo Covarrubias)</span> <span id="valGMain" class="value-pill">55 s</span></label>
+            <input id="slGMain" type="range" min="30" max="90" step="5" value="55"/>
+          </div>
+          <div class="slider-field">
+            <label><span class="eufarei12x">Semáforo Verde - 2</span> <span class="especialAV">(Blvd.Primavera)</span> <span id="valGInd" class="value-pill">28 s</span></label>
+            <input id="slGInd" type="range" min="10" max="60" step="5" value="28"/>
+          </div>
+          <div class="slider-field">
+            <label><span class="eufarei10x">Semáforo Amarillo</span> <span class="especialAV">(General)</span><span id="valY" class="value-pill">4 s</span></label>
+            <input id="slY" type="range" min="3" max="6" step="1" value="4"/>
+          </div>
+          <div class="slider-field">
+            <label><span class="eufarei11x">Semáforo Rojo</span> <span class="especialAV">(General)</span>  <span id="valAR" class="value-pill">2 s</span></label>
+            <input id="slAR" type="range" min="1" max="4" step="1" value="2"/>
+          </div>
+        </div>
+
+        <div class="station-card">
+          <div><strong>Velocidad de Simulación</strong></div>
+            <div class="slider-field">
+            <label>Factor de velocidad <span id="valSpeed" class="value-pill">1x</span></label>
+            <input id="slSpeed" type="range" min="0.5" max="6" step="0.5" value="1"/>
+          </div>
+        </div>
+
+
+        <div class="station-card">
+          <div>
+            <strong>Tráfico (tasa de llegada λ)</strong>
+            <div class="hint">veh/s por carril (valores bajos: 0.003–0.02)</div>
+          </div>
+          <div class="slider-field">
+            <label>λ principal (Este y Oeste) <span class="especialAV">(Av.Ricardo Covarrubias)</span> <span id="valLamMain" class="value-pill">0.012</span></label>
+            <input id="slLamMain" type="range" min="0" max="0.03" step="0.001" value="0.012"/>
+          </div>
+          <div class="slider-field">
+            <label>λ secundario (Sur a Norte)<span class="especialAV">(Blvd.Primavera)</span> <span id="valLamInd" class="value-pill">0.004</span></label>
+            <input id="slLamInd" type="range" min="0" max="0.02" step="0.001" value="0.004"/>
+          </div>
+
+        </div>
+
+        <div class="station-card">
+          <div><strong>Ángulos de cámara</strong></div>
+          <div class="btn-row">
+            <button class="btn primary" id="camA">Vista A</button>
+            <button class="btn primary" id="camB">Vista B</button>
+            <button class="btn primary" id="camC">Vista C</button>
+          </div>
+        </div>
+
+        <div class="station-card">
+          <div><strong>Tiempo</strong></div>
+          <div class="stat">
+          <div class="num" id="stat-time">00:00:00</div>
+          <div class="label">Tiempo simulado</div>
+          </div>
+        </div>
+
+        <div class="station-card">
+          <div><strong>Estado</strong></div>
+          <div id="statusBox" class="status-pill">Cargando WebGL…</div>
+        </div>
+      </div>
+    </aside>
+
+    
+
+    <section class="map-area">
+      <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+        <div id="unity-loading">
+          <div class="spinner"></div>
+          <div id="unity-progress">0%</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <script src="Build/Build.loader.js"></script>
+</body>
+</html>
